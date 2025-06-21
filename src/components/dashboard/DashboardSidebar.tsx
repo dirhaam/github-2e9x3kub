@@ -1,9 +1,11 @@
+import {} from 'react'; // Dummy import to ensure module treatment
 
-import React from 'react';
+import React from 'react'; // Keep existing React import
 import { Button } from '@/components/ui/button';
 import { 
   LayoutDashboard, 
   ShoppingCart, 
+  Home,
   Briefcase, 
   FolderOpen, 
   FileText,
@@ -12,12 +14,12 @@ import {
 } from 'lucide-react';
 
 interface DashboardSidebarProps {
-  activeTab: string;
-  setActiveTab: (tab: string) => void;
+ activeTab: string;
+ setActiveTab: (tab: string) => void;
 }
-
 const DashboardSidebar = ({ activeTab, setActiveTab }: DashboardSidebarProps) => {
   const menuItems = [
+    { id: 'home', label: 'Home', icon: Home, path: '/' },
     { id: 'overview', label: 'Overview', icon: LayoutDashboard },
     { id: 'orders', label: 'Pesanan', icon: ShoppingCart },
     { id: 'services', label: 'Layanan', icon: Briefcase },
@@ -27,6 +29,9 @@ const DashboardSidebar = ({ activeTab, setActiveTab }: DashboardSidebarProps) =>
     { id: 'settings', label: 'Pengaturan', icon: Settings },
   ];
 
+  // Determine if the item should be a regular link or a button for tab switching
+  // The logic for handling navigation and tab switching is already correctly implemented within the map function below.
+
   return (
     <div className="w-64 bg-card border-r border-border p-4 space-y-4">
       <div className="flex items-center gap-2 mb-8">
@@ -35,7 +40,7 @@ const DashboardSidebar = ({ activeTab, setActiveTab }: DashboardSidebarProps) =>
         </div>
         <span className="font-semibold text-foreground">Digital Service Admin</span>
       </div>
-      
+
       <nav className="space-y-2">
         <div className="text-xs text-muted-foreground uppercase mb-3">Menu Utama</div>
         {menuItems.map((item) => {
@@ -44,12 +49,8 @@ const DashboardSidebar = ({ activeTab, setActiveTab }: DashboardSidebarProps) =>
             <Button
               key={item.id}
               variant={activeTab === item.id ? "default" : "ghost"}
-              className={`w-full justify-start gap-3 ${
-                activeTab === item.id
-                  ? "bg-primary text-primary-foreground"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-              onClick={() => setActiveTab(item.id)}
+              className={`w-full justify-start gap-3 ${activeTab === item.id ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}
+              onClick={() => item.path ? window.location.href = item.path : setActiveTab(item.id)}
             >
               <Icon className="h-4 w-4" />
               {item.label}

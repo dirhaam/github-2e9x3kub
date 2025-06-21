@@ -10,8 +10,8 @@ import { Loader2, Lock, Mail, User, ArrowLeft } from 'lucide-react';
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
-  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
   const [fullName, setFullName] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -40,19 +40,6 @@ const Auth = () => {
         if (error) throw error;
         toast.success('Login berhasil!');
       } else {
-        const { error } = await supabase.auth.signUp({
-          email,
-          password,
-          options: {
-            emailRedirectTo: `${window.location.origin}/dashboard`,
-            data: {
-              full_name: fullName,
-            },
-          },
-        });
-
-        if (error) throw error;
-        toast.success('Akun berhasil dibuat! Silakan periksa email untuk verifikasi.');
       }
     } catch (error: any) {
       console.error('Auth error:', error);
@@ -85,9 +72,7 @@ const Auth = () => {
           </CardTitle>
           <CardDescription className="text-center">
             {isLogin
-              ? 'Masuk ke dashboard admin'
-              : 'Buat akun admin baru'
-            }
+              ? 'Masuk ke dashboard admin' : ''}
           </CardDescription>
         </CardHeader>
         
@@ -118,7 +103,7 @@ const Auth = () => {
                 type="email"
                 placeholder="admin@example.com"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </div>
@@ -148,23 +133,10 @@ const Auth = () => {
                   {isLogin ? 'Masuk...' : 'Mendaftar...'}
                 </>
               ) : (
-                isLogin ? 'Masuk' : 'Daftar'
+                isLogin ? 'Masuk' : ''
               )}
             </Button>
           </form>
-          
-          <div className="mt-4 text-center">
-            <button
-              type="button"
-              onClick={() => setIsLogin(!isLogin)}
-              className="text-sm text-primary hover:underline"
-            >
-              {isLogin
-                ? 'Belum punya akun? Daftar di sini'
-                : 'Sudah punya akun? Masuk di sini'
-              }
-            </button>
-          </div>
         </CardContent>
       </Card>
     </div>

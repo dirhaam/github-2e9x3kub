@@ -8,14 +8,6 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
 
-  const navItems = [
-    { label: 'Beranda', href: '/' },
-    { label: 'Layanan', href: '#services' },
-    { label: 'Portfolio', href: '#portfolio' },
-    { label: 'Testimonial', href: '#testimonials' },
-    { label: 'Kontak', href: '#contact' },
-  ];
-
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
@@ -31,17 +23,7 @@ const Header = () => {
         </div>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-6">
-          {navItems.map((item) => (
-            <a
-              key={item.label}
-              href={item.href}
-              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-            >
-              {item.label}
-            </a>
-          ))}
-        </nav>
+        <nav className="hidden md:flex items-center space-x-6"></nav>
 
         {/* Action Buttons */}
         <div className="hidden md:flex items-center gap-3">
@@ -82,16 +64,6 @@ const Header = () => {
       {isMenuOpen && (
         <div className="md:hidden border-t border-border bg-background">
           <nav className="container mx-auto px-4 py-4 space-y-4">
-            {navItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className="block text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                {item.label}
-              </a>
-            ))}
             <div className="pt-4 space-y-2">
               <Button
                 variant="outline"
